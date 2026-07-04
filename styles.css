@@ -96,6 +96,18 @@ header.site { position: sticky; top: 0; z-index: 50; background: color-mix(in sr
 .mobile-nav a { display: block; text-decoration: none; color: var(--ink); font-size: 16px; padding: 14px 24px; border-bottom: 1px solid var(--line); }
 .mobile-nav a:last-child { border-bottom: none; }
 .mobile-nav a:hover { background: var(--parchment-2); color: var(--oxblood); }
+.mobile-nav a.sub { padding-left: 40px; font-size: 15px; color: var(--ink-soft); }
+
+/* desktop ministries dropdown */
+.navdrop { position: relative; display: inline-flex; align-items: center; }
+.navdrop > .navdrop-toggle { display: inline-flex; align-items: center; gap: 5px; }
+.navdrop > .navdrop-toggle svg { width: 11px; height: 11px; transition: transform .18s; }
+.navdrop::after { content: ''; position: absolute; top: 100%; left: -8px; right: -8px; height: 14px; }
+.navdrop-menu { position: absolute; top: calc(100% + 8px); left: -12px; min-width: 216px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; box-shadow: var(--shadow); padding: 7px; opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity .16s, transform .16s, visibility .16s; z-index: 60; }
+.navdrop:hover .navdrop-menu, .navdrop:focus-within .navdrop-menu { opacity: 1; visibility: visible; transform: translateY(0); }
+.navdrop:hover > .navdrop-toggle svg, .navdrop:focus-within > .navdrop-toggle svg { transform: rotate(180deg); }
+.navdrop-menu a { display: block; padding: 9px 13px; border-radius: 9px; font-size: 14px; font-weight: 500; color: var(--ink-soft); border-bottom: none; white-space: nowrap; transition: background .12s, color .12s; }
+.navdrop-menu a:hover { background: var(--parchment-2); color: var(--oxblood); border-color: transparent; }
 
 /* ---------- hero (home) ---------- */
 .hero { position: relative; overflow: hidden; color: var(--on-hero); background: radial-gradient(120% 130% at 50% 0%, var(--hero-2), var(--hero-1) 70%); }
