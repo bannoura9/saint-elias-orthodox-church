@@ -266,6 +266,9 @@ section.band.tight { padding: 54px 0; }
 .event .actions { margin-top: auto; padding-top: 20px; display: flex; gap: 10px; flex-wrap: wrap; }
 .pricing { display: grid; gap: 8px; margin-top: 16px; }
 .pricing .p { display: flex; justify-content: space-between; align-items: baseline; padding: 11px 15px; background: var(--parchment); border: 1px solid var(--line); border-radius: 10px; }
+a.p { text-decoration: none; color: inherit; transition: border-color .15s ease, background .15s ease; }
+a.p:hover { border-color: var(--gold); background: #fff; }
+a.p:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
 .pricing .p .n { font-weight: 600; font-size: 14.5px; }
 .pricing .p .n span { display: block; font-weight: 400; font-size: 12.5px; color: var(--taupe); }
 .pricing .p .amt { font-family: var(--serif); font-size: 18px; color: var(--oxblood); font-variant-numeric: tabular-nums; }
