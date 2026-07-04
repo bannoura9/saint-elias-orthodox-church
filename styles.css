@@ -70,6 +70,10 @@ header.site { position: sticky; top: 0; z-index: 50; background: color-mix(in sr
 .brand .mark { width: 34px; height: 34px; color: var(--oxblood); flex: none; }
 .brand b { font-family: var(--serif); font-size: 19px; line-height: 1; color: var(--ink); }
 .brand span { display: block; font-family: var(--sans); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--taupe); margin-top: 3px; }
+.brand-logo { height: 46px; width: auto; display: block; }
+@media (prefers-color-scheme: dark) { .brand-logo { filter: drop-shadow(0 0 1px rgba(201,162,39,.35)); } }
+:root[data-theme="dark"] .brand-logo { filter: drop-shadow(0 0 1px rgba(201,162,39,.35)); }
+:root[data-theme="light"] .brand-logo { filter: none; }
 .nav nav { display: flex; gap: 22px; }
 .nav nav a { text-decoration: none; font-size: 14.5px; color: var(--ink-soft); font-weight: 500; padding: 6px 0; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; }
 .nav nav a:hover { color: var(--oxblood); border-color: var(--gold); }
@@ -298,6 +302,7 @@ footer.site { background: var(--card); border-top: 1px solid var(--line); margin
 .foot .brand2 { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
 .foot .brand2 .mark { width: 40px; height: 40px; color: var(--oxblood); }
 .foot .brand2 b { font-family: var(--serif); font-size: 20px; }
+.foot .brand2 .brand-logo { height: 56px; }
 .foot p { color: var(--ink-soft); font-size: 14.5px; margin: 4px 0; }
 .foot h4 { font-family: var(--sans); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: var(--taupe); margin: 0 0 14px; }
 .foot a { color: var(--ink-soft); text-decoration: none; display: block; font-size: 14.5px; padding: 4px 0; }
