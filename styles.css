@@ -270,6 +270,17 @@ section.band.tight { padding: 54px 0; }
 .pricing .p .n span { display: block; font-weight: 400; font-size: 12.5px; color: var(--taupe); }
 .pricing .p .amt { font-family: var(--serif); font-size: 18px; color: var(--oxblood); font-variant-numeric: tabular-nums; }
 
+/* New Year — full-width teaser box under the two event cards */
+.ny-box { margin-top: 22px; display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 28px; background: var(--card); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: 18px; box-shadow: var(--shadow); padding: 26px 30px; }
+.ny-box .ny-mark { font-size: 46px; line-height: 1; }
+.ny-box .ny-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.ny-box .tag { display: inline-block; font-family: var(--sans); font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: var(--gold); background: rgba(184,145,46,.14); padding: 5px 11px; border-radius: 100px; }
+.ny-box .tag.date { color: var(--oxblood); background: rgba(122,31,43,.1); }
+.ny-box h3 { font-size: 24px; margin: 12px 0 0; }
+.ny-box p { color: var(--ink-soft); font-size: 15px; margin: 10px 0 0; max-width: 68ch; }
+.ny-box .ny-soon { color: var(--gold); font-weight: 600; }
+@media (max-width: 620px) { .ny-box { grid-template-columns: 1fr; gap: 12px; text-align: left; } }
+
 /* ---------- newsletter ---------- */
 .news { background: linear-gradient(165deg, var(--midnight), #101A30); color: #E9EEF7; border-radius: 20px; padding: 44px; text-align: center; box-shadow: var(--shadow-lg); }
 .news h2 { color: #fff; font-size: clamp(24px,3.2vw,32px); margin: 0; text-wrap: balance; }
