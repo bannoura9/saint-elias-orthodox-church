@@ -3,17 +3,34 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="The Saint Elias Mediterranean Festival in Arvada, CO — a two-day, family-friendly celebration of Mediterranean music, cuisine, and faith. Arabic music, Mediterranean food, Turkish coffee, henna art, a fashion show, church tours, and family fun at St. Elias Park. Free admission.">
+<meta name="description" content="The 15th Annual Saint Elias Mediterranean Festival in Arvada, CO — a two-day, family-friendly celebration of Mediterranean music, cuisine, and faith. Arabic music, Mediterranean food, Turkish coffee, henna art, a fashion show, church tours, and family fun at St. Elias Park.">
 <meta name="theme-color" content="#7A1F2B">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Mediterranean Festival — Saint Elias Orthodox Church, Arvada CO">
-<meta property="og:description" content="The Saint Elias Mediterranean Festival in Arvada, CO — a two-day, family-friendly celebration of Mediterranean music, cuisine, and faith. Free admission.">
+<meta property="og:description" content="The 15th Annual Saint Elias Mediterranean Festival in Arvada, CO — a two-day, family-friendly celebration of Mediterranean music, cuisine, and faith.">
 <meta property="og:locale" content="en_US">
 <link rel="canonical" href="https://steliasarvada.com/festival.html">
 <link rel="stylesheet" href="styles.css">
 <link rel="icon" type="image/png" href="assets/favicon.png">
 <link rel="apple-touch-icon" href="assets/favicon.png">
 <title>Mediterranean Festival — Saint Elias Orthodox Church, Arvada CO</title>
+<style>
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-top:28px}
+  .gallery figure{margin:0;overflow:hidden;border-radius:14px;box-shadow:var(--shadow);aspect-ratio:3/2;
+    background:var(--card);cursor:zoom-in}
+  .gallery img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s ease}
+  .gallery figure:hover img,.gallery figure:focus-within img{transform:scale(1.05)}
+  .gallery figure:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+  .lb{position:fixed;inset:0;background:rgba(20,16,14,.92);display:none;align-items:center;justify-content:center;z-index:1000;padding:24px}
+  .lb.open{display:flex}
+  .lb img{max-width:94vw;max-height:88vh;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+  .lb button{position:absolute;background:rgba(255,255,255,.14);color:#fff;border:none;border-radius:999px;width:52px;height:52px;font-size:26px;cursor:pointer;line-height:1}
+  .lb .lb-close{top:18px;right:18px}.lb .lb-prev{left:18px;top:50%;transform:translateY(-50%)}.lb .lb-next{right:18px;top:50%;transform:translateY(-50%)}
+  .lb button:hover{background:rgba(255,255,255,.28)}
+  .vendor-card{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);border-radius:16px;
+    box-shadow:var(--shadow);padding:26px;display:flex;flex-wrap:wrap;align-items:center;gap:18px;justify-content:space-between}
+  .vendor-card .price{font-family:var(--serif);font-size:30px;color:var(--oxblood)}
+</style>
 </head>
 <body>
 
@@ -57,7 +74,7 @@
   <div class="page-hero-inner">
     <p class="greet"><span class="ar">أهلاً وسهلاً</span> &nbsp;·&nbsp; Welcome</p>
     <h1>15th Annual Mediterranean Festival</h1>
-    <p class="lede">A two-day celebration of Mediterranean music, food &amp; faith — everyone is welcome, with free admission for all.</p>
+    <p class="lede">A two-day celebration of Mediterranean music, food &amp; faith — open to all ages and backgrounds.</p>
   </div>
 </div>
 
@@ -75,7 +92,7 @@
   <div class="wrap wrap-narrow">
     <div class="prose">
       <p class="lead">Each summer, Saint Elias Orthodox Church throws open its doors for a two-day, family-friendly celebration of the many cultures of the Mediterranean — a feast of music, food, and hospitality shared with all of Arvada.</p>
-      <p>Hosted at the church on 7580 Pierce St and spilling out into St. Elias Park, the festival brings together authentic Arabic music, Mediterranean cuisine, and traditions carried across generations. Come hungry, come curious, and bring the whole family — from the youngest to the eldest, there is something here for everyone. And it's all free to enter.</p>
+      <p>Hosted at the church on 7580 Pierce St and spilling out into St. Elias Park, the festival brings together authentic Arabic music, Mediterranean cuisine, and traditions carried across generations — with contributions from individuals representing many cultures across the Mediterranean. Come hungry, come curious, and bring the whole family — from the youngest to the eldest, there is something here for everyone.</p>
     </div>
   </div>
 </section>
@@ -134,23 +151,55 @@
 
 <section class="band">
   <div class="wrap wrap-narrow">
+    <div class="callout">
+      <h3>Something for every age</h3>
+      <p>Beyond the music and food, the festival is packed with family fun: friendly competitions in <b>basketball, volleyball, ping pong</b>, and a <b>watermelon-eating contest</b>; <b>bounce castles</b> and <b>water play from a fire truck</b> for the kids; and cultural performances and community events throughout the day. Our mission is simple — to celebrate and share the beauty of Mediterranean cultures through food, music, and community fun, spreading love, understanding, and joy to all.</p>
+    </div>
+  </div>
+</section>
+
+<section class="band alt">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Photo Gallery</p>
+      <h2>Scenes from the festival</h2>
+      <p>A look back at the music, food, and fellowship of our Mediterranean Festival. Tap any photo to view it larger.</p>
+    </div>
+    <div class="gallery" id="festGallery" aria-label="Mediterranean Festival photo gallery"></div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap wrap-narrow">
     <div class="prose">
       <h2>Plan your visit</h2>
-      <p>The Mediterranean Festival is held at Saint Elias Orthodox Church, <b>7580 Pierce St, Arvada, CO 80003</b>, with family activities continuing at nearby <b>St. Elias Park</b>. Admission is <b>free</b> — simply come as you are and enjoy the day.</p>
-      <p>The festival <b>returns each summer</b>, spanning two days of food, music, and fellowship. Exact dates change from year to year and are <b>to be confirmed</b> — check back closer to the season, or <a class="link" href="contact.html">contact the parish</a> to be sure of the dates before you plan your visit.</p>
-      <div class="callout" style="margin-top:26px;">
-        <h3>Free admission · everyone welcome</h3>
-        <p>No ticket needed. Food, Turkish coffee, and treats are available for purchase on-site, and every purchase supports the parish and its ministries.</p>
-      </div>
+      <p>The Mediterranean Festival is held at Saint Elias Orthodox Church, <b>7580 Pierce St, Arvada, CO 80003</b>, with family activities continuing at nearby <b>St. Elias Park</b>. It's a two-day celebration, open to all ages and backgrounds.</p>
+      <p>The festival <b>returns each summer, in late August</b> (the previous festival was held August 30–31). Exact dates for the coming year are <b>to be confirmed</b> — check back closer to the season, or <a class="link" href="contact.html">contact the parish</a> to be sure of the dates before you plan your visit.</p>
+      <p>Start your day by meeting <b>Fr. George Shawareb</b>, who shares the history and traditions of the Orthodox Church, then head over to St. Elias Park for the activities and food.</p>
     </div>
   </div>
 </section>
 
 <section class="band alt">
   <div class="wrap wrap-narrow">
-    <div class="callout">
-      <h3>Volunteer or sponsor</h3>
-      <p>A festival this size is only possible because parishioners and friends give their time each year — <span class="ar">شكراً</span> to everyone who pitches in. We especially need <b>volunteers</b> for every festival: cooking, serving, setup, and welcoming guests. Sign up to <a class="link" href="volunteers.html">volunteer for the festival</a>, or support the parish year-round through <a class="link" href="give.html">giving &amp; sponsorship</a>.</p>
+    <div class="section-head">
+      <p class="eyebrow">Vendors Welcome</p>
+      <h2>Showcase your business at the festival</h2>
+      <p>Interested in showcasing your products or services? Set up a booth and connect with a diverse audience across two days.</p>
+    </div>
+    <div class="vendor-card">
+      <div>
+        <h3 style="margin:0 0 4px;">Vendor Opportunity · Non-food vendors</h3>
+        <p style="margin:0;color:var(--ink-soft);">Reserve a booth at the Saint Elias Mediterranean Festival and reach the whole community.</p>
+      </div>
+      <div style="text-align:right;">
+        <div class="price">$150.00</div>
+        <a class="btn btn-gold" href="contact.html">Book Your Booth</a>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:22px;">
+      <h3>Volunteer</h3>
+      <p>A festival this size is only possible because parishioners and friends give their time each year — <span class="ar">شكراً</span> to everyone who pitches in. We especially need <b>volunteers</b> for every festival: cooking, serving, setup, and welcoming guests. Sign up to <a class="link" href="volunteers.html">volunteer for the festival</a>, or support the parish year-round through <a class="link" href="give.html">giving</a>.</p>
     </div>
   </div>
 </section>
@@ -204,6 +253,38 @@
   </div>
   <div class="subfoot">© 2026 Saint Elias Antiochian Orthodox Church · Arvada, Colorado · <span class="ar">المسيح بيننا</span></div>
 </footer>
+
+<div class="lb" id="lb" aria-hidden="true" role="dialog" aria-label="Photo viewer">
+  <button class="lb-close" id="lbClose" aria-label="Close">×</button>
+  <button class="lb-prev" id="lbPrev" aria-label="Previous photo">‹</button>
+  <img id="lbImg" alt="Festival photo — enlarged">
+  <button class="lb-next" id="lbNext" aria-label="Next photo">›</button>
+</div>
+<script>
+(function(){
+  var COUNT = 16, base = "assets/festival/", pad = function(n){ return (n<10?"0":"")+n; };
+  var g = document.getElementById("festGallery"), frag = document.createDocumentFragment();
+  for(var i=1;i<=COUNT;i++){
+    var fig=document.createElement("figure"); fig.tabIndex=0; fig.setAttribute("data-i",i);
+    var im=document.createElement("img"); im.loading="lazy"; im.decoding="async";
+    im.src=base+"fest-"+pad(i)+".jpg"; im.alt="Saint Elias Mediterranean Festival";
+    fig.appendChild(im); frag.appendChild(fig);
+  }
+  g.appendChild(frag);
+  var lb=document.getElementById("lb"), lbImg=document.getElementById("lbImg"), cur=0;
+  function show(n){ cur=(n+COUNT-1)%COUNT+1; lbImg.src=base+"fest-"+pad(cur)+".jpg";
+    lb.classList.add("open"); lb.setAttribute("aria-hidden","false"); document.body.style.overflow="hidden"; }
+  function close(){ lb.classList.remove("open"); lb.setAttribute("aria-hidden","true"); document.body.style.overflow=""; lbImg.src=""; }
+  g.addEventListener("click",function(e){ var f=e.target.closest("figure"); if(f) show(+f.getAttribute("data-i")); });
+  g.addEventListener("keydown",function(e){ if(e.key==="Enter"||e.key===" "){ var f=e.target.closest("figure"); if(f){ e.preventDefault(); show(+f.getAttribute("data-i")); } } });
+  document.getElementById("lbClose").addEventListener("click",close);
+  document.getElementById("lbNext").addEventListener("click",function(){ show(cur+1); });
+  document.getElementById("lbPrev").addEventListener("click",function(){ show(cur-1); });
+  lb.addEventListener("click",function(e){ if(e.target===lb) close(); });
+  document.addEventListener("keydown",function(e){ if(!lb.classList.contains("open"))return;
+    if(e.key==="Escape")close(); else if(e.key==="ArrowRight")show(cur+1); else if(e.key==="ArrowLeft")show(cur-1); });
+})();
+</script>
 
 <script src="site.js"></script>
 </body>
