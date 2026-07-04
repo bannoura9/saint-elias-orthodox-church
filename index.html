@@ -10,6 +10,7 @@
 <meta property="og:description" content="An Eastern Orthodox parish in Arvada, CO. Divine Liturgy Sundays at 10:00 AM. Everyone welcome — come and see.">
 <meta property="og:locale" content="en_US">
 <link rel="canonical" href="https://steliasarvada.com/">
+<link rel="stylesheet" href="styles.css">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -39,232 +40,14 @@
 }
 </script>
 <title>Saint Elias Orthodox Church — Arvada, Colorado</title>
-<style>
-  :root {
-    --parchment: #F4EDDF;
-    --parchment-2: #EDE3D0;
-    --card: #FBF6EC;
-    --ink: #2A2018;
-    --ink-soft: #574838;
-    --taupe: #8C7B66;
-    --line: #E4D8C1;
-    --oxblood: #7A1F2B;
-    --oxblood-deep: #5E141F;
-    --gold: #B8912E;
-    --gold-bright: #C9A227;
-    --midnight: #1B2A4A;
-    --hero-1: #2A1116;
-    --hero-2: #4A1B22;
-    --hero-glow: rgba(201,162,39,.30);
-    --on-hero: #F6ECD8;
-    --on-hero-soft: #E5D2B0;
-    --serif: 'Hoefler Text', 'Iowan Old Style', 'Palatino Linotype', Palatino, Georgia, 'Times New Roman', serif;
-    --sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-    --shadow: 0 1px 2px rgba(42,32,24,.06), 0 12px 34px rgba(42,32,24,.09);
-    --shadow-lg: 0 24px 60px rgba(42,20,14,.18);
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --parchment: #14100A; --parchment-2: #1C1610; --card: #211A11;
-      --ink: #EFE4D0; --ink-soft: #C6B79E; --taupe: #9A8871; --line: #362A1A;
-      --oxblood: #D57078; --oxblood-deep: #C05860; --gold: #D8B45A; --gold-bright: #E4C56B;
-      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 40px rgba(0,0,0,.5);
-      --shadow-lg: 0 30px 70px rgba(0,0,0,.6);
-    }
-  }
-  :root[data-theme="light"] {
-    --parchment: #F4EDDF; --parchment-2: #EDE3D0; --card: #FBF6EC;
-    --ink: #2A2018; --ink-soft: #574838; --taupe: #8C7B66; --line: #E4D8C1;
-    --oxblood: #7A1F2B; --oxblood-deep: #5E141F; --gold: #B8912E; --gold-bright: #C9A227;
-    --shadow: 0 1px 2px rgba(42,32,24,.06), 0 12px 34px rgba(42,32,24,.09);
-    --shadow-lg: 0 24px 60px rgba(42,20,14,.18);
-  }
-  :root[data-theme="dark"] {
-    --parchment: #14100A; --parchment-2: #1C1610; --card: #211A11;
-    --ink: #EFE4D0; --ink-soft: #C6B79E; --taupe: #9A8871; --line: #362A1A;
-    --oxblood: #D57078; --oxblood-deep: #C05860; --gold: #D8B45A; --gold-bright: #E4C56B;
-    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 14px 40px rgba(0,0,0,.5);
-    --shadow-lg: 0 30px 70px rgba(0,0,0,.6);
-  }
-  * { box-sizing: border-box; }
-  html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { animation: none !important; transition: none !important; } }
-  body { margin: 0; background: var(--parchment); color: var(--ink); font-family: var(--sans); line-height: 1.6; -webkit-font-smoothing: antialiased; }
-  h1,h2,h3,h4,.serif { font-family: var(--serif); font-weight: 600; letter-spacing: -.01em; }
-  a { color: inherit; }
-  img { max-width: 100%; }
-  .wrap { max-width: 1120px; margin: 0 auto; padding: 0 24px; }
-  .eyebrow { font-family: var(--sans); text-transform: uppercase; letter-spacing: .2em; font-size: 12px; font-weight: 700; color: var(--gold); }
+</head>
+<body>
 
-  .protobar { background: var(--midnight); color: #E9EEF7; text-align: center; font-family: var(--sans); font-size: 12.5px; letter-spacing: .02em; padding: 7px 16px; }
-  .protobar b { color: #fff; }
-
-  /* header */
-  header.site { position: sticky; top: 0; z-index: 50; background: color-mix(in srgb, var(--parchment) 88%, transparent); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
-  .nav { display: flex; align-items: center; gap: 24px; height: 68px; }
-  .brand { display: flex; align-items: center; gap: 11px; text-decoration: none; margin-right: auto; }
-  .brand .mark { width: 34px; height: 34px; color: var(--oxblood); flex: none; }
-  .brand b { font-family: var(--serif); font-size: 19px; line-height: 1; color: var(--ink); }
-  .brand span { display: block; font-family: var(--sans); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--taupe); margin-top: 3px; }
-  .nav nav { display: flex; gap: 22px; }
-  .nav nav a { text-decoration: none; font-size: 14.5px; color: var(--ink-soft); font-weight: 500; padding: 6px 0; border-bottom: 2px solid transparent; transition: color .15s, border-color .15s; }
-  .nav nav a:hover { color: var(--oxblood); border-color: var(--gold); }
-  .btn { display: inline-flex; align-items: center; gap: 8px; font-family: var(--sans); font-weight: 600; font-size: 14.5px; text-decoration: none; padding: 10px 18px; border-radius: 100px; border: 1.5px solid transparent; cursor: pointer; transition: transform .12s ease, box-shadow .12s, background .15s; }
-  .btn:active { transform: translateY(1px); }
-  .btn-primary { background: var(--oxblood); color: #FBF6EC; box-shadow: 0 6px 18px rgba(122,31,43,.28); }
-  .btn-primary:hover { background: var(--oxblood-deep); }
-  .btn-gold { background: linear-gradient(180deg, var(--gold-bright), var(--gold)); color: #2A1810; box-shadow: 0 6px 18px rgba(184,145,46,.32); }
-  .btn-ghost { border-color: var(--on-hero-soft); color: var(--on-hero); }
-  .btn-ghost:hover { background: rgba(246,236,216,.1); }
-  .btn-outline { border-color: var(--line); color: var(--ink); background: var(--card); }
-  .btn-outline:hover { border-color: var(--gold); }
-  .menubtn { display: none; }
-
-  /* hero */
-  .hero { position: relative; overflow: hidden; color: var(--on-hero); background: radial-gradient(120% 130% at 50% 0%, var(--hero-2), var(--hero-1) 70%); }
-  .hero .glow { position: absolute; inset: 0; background: radial-gradient(50% 42% at 50% 8%, var(--hero-glow), transparent 70%); pointer-events: none; }
-  .hero .arches { position: absolute; inset: 0; display: flex; justify-content: center; gap: 0; opacity: .16; pointer-events: none; }
-  .hero .arches svg { height: 100%; width: auto; color: var(--gold-bright); }
-  .hero-inner { position: relative; text-align: center; padding: 72px 24px 88px; max-width: 900px; margin: 0 auto; }
-  .greet { font-family: var(--serif); font-style: italic; font-size: clamp(17px,2.4vw,21px); color: var(--gold-bright); margin: 0 0 6px; }
-  .greet .ar { font-style: normal; direction: rtl; unicode-bidi: isolate; }
-  .hero h1 { font-size: clamp(38px, 7vw, 74px); line-height: 1.02; margin: 10px auto 0; max-width: 15ch; text-wrap: balance; color: #fff; }
-  .hero .patron { margin: 20px auto 0; max-width: 46ch; color: var(--on-hero-soft); font-size: clamp(16px,2vw,18.5px); }
-  .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 34px; }
-
-  .times { display: inline-flex; flex-wrap: wrap; gap: 0; margin: 40px auto 0; background: rgba(20,10,8,.34); border: 1px solid rgba(201,162,39,.34); border-radius: 16px; backdrop-filter: blur(4px); overflow: hidden; }
-  .times .t { padding: 15px 26px; text-align: center; border-right: 1px solid rgba(201,162,39,.22); }
-  .times .t:last-child { border-right: none; }
-  .times .t .lbl { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--gold-bright); }
-  .times .t .val { font-family: var(--serif); font-size: 21px; color: #fff; margin-top: 3px; }
-  .times .t .sub { font-size: 12px; color: var(--on-hero-soft); }
-
-  /* info bar */
-  .infobar { background: var(--oxblood); color: #F6ECD8; }
-  .infobar .wrap { display: flex; align-items: center; gap: 14px 30px; flex-wrap: wrap; padding-top: 13px; padding-bottom: 13px; font-size: 14.5px; }
-  .infobar .i { display: inline-flex; align-items: center; gap: 8px; }
-  .infobar svg { width: 17px; height: 17px; color: var(--gold-bright); flex: none; }
-  .infobar a { color: #F6ECD8; text-decoration: none; font-weight: 500; }
-  .infobar a:hover { text-decoration: underline; }
-  .infobar .spacer { margin-left: auto; }
-  .infobar .badge { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; }
-
-  section.band { padding: 74px 0; }
-  .section-head { text-align: center; max-width: 62ch; margin: 0 auto 46px; }
-  .section-head h2 { font-size: clamp(28px,4vw,40px); margin: 12px 0 0; text-wrap: balance; }
-  .section-head p { color: var(--ink-soft); margin: 14px 0 0; font-size: 17px; }
-
-  /* clergy welcome */
-  .welcome { display: grid; grid-template-columns: 300px 1fr; gap: 44px; align-items: center; }
-  .portrait { position: relative; aspect-ratio: 4/5; border-radius: 200px 200px 14px 14px; overflow: hidden; background: linear-gradient(160deg, #6E2530, #3A141A); box-shadow: var(--shadow-lg); border: 1px solid var(--line); display: grid; place-content: center; text-align: center; color: var(--on-hero-soft); }
-  .portrait .ph { font-family: var(--sans); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; padding: 0 20px; opacity: .8; }
-  .portrait svg { width: 80px; height: 80px; color: var(--gold-bright); opacity: .55; margin: 0 auto 10px; }
-  .welcome .body h2 { font-size: clamp(26px,3.4vw,36px); margin: 8px 0 0; }
-  .welcome .body p { color: var(--ink-soft); font-size: 17.5px; margin: 18px 0 0; }
-  .welcome .sig { font-family: var(--serif); font-style: italic; font-size: 20px; color: var(--oxblood); margin-top: 20px; }
-  .welcome .sig small { display:block; font-style: normal; font-family: var(--sans); font-size: 13px; letter-spacing: .04em; color: var(--taupe); text-transform: uppercase; margin-top: 4px; }
-
-  .band.alt { background: var(--parchment-2); }
-
-  /* expect */
-  .expect-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 16px; }
-  .xcard { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 24px; box-shadow: var(--shadow); }
-  .xcard .ic { width: 44px; height: 44px; border-radius: 12px; background: rgba(184,145,46,.14); color: var(--gold); display: grid; place-content: center; margin-bottom: 14px; }
-  .xcard .ic svg { width: 23px; height: 23px; }
-  .xcard h3 { font-size: 18.5px; margin: 0 0 6px; }
-  .xcard p { margin: 0; color: var(--ink-soft); font-size: 14.5px; }
-
-  /* schedule */
-  .sched { display: grid; grid-template-columns: 1.1fr 1fr; gap: 20px; }
-  .sched .list { background: var(--card); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; box-shadow: var(--shadow); }
-  .sched .row { display: flex; align-items: baseline; gap: 16px; padding: 16px 22px; border-bottom: 1px solid var(--line); }
-  .sched .row:last-child { border-bottom: none; }
-  .sched .row .day { font-family: var(--serif); font-size: 17px; width: 108px; flex: none; color: var(--oxblood); }
-  .sched .row .svc { flex: 1; }
-  .sched .row .svc b { font-weight: 600; }
-  .sched .row .svc span { display: block; font-size: 13px; color: var(--taupe); }
-  .sched .row .time { font-family: var(--serif); font-size: 17px; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .season { background: linear-gradient(165deg, var(--oxblood), var(--oxblood-deep)); color: #F6ECD8; border-radius: 16px; padding: 28px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; }
-  .season .eyebrow { color: var(--gold-bright); }
-  .season h3 { color: #fff; font-size: 24px; margin: 10px 0 0; }
-  .season p { color: var(--on-hero-soft); font-size: 15px; margin: 12px 0 0; }
-  .season .add { margin-top: auto; padding-top: 18px; }
-
-  /* watch live */
-  .watch { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-  .screen { aspect-ratio: 16/9; border-radius: 16px; background: radial-gradient(80% 80% at 50% 40%, #3A141A, #1B0A0D); border: 1px solid var(--line); box-shadow: var(--shadow-lg); position: relative; display: grid; place-content: center; overflow: hidden; }
-  .screen .arches2 { position: absolute; inset: 0; opacity: .18; color: var(--gold-bright); }
-  .screen .play { width: 74px; height: 74px; border-radius: 50%; background: rgba(246,236,216,.14); border: 1.5px solid rgba(201,162,39,.6); display: grid; place-content: center; backdrop-filter: blur(3px); }
-  .screen .play svg { width: 26px; height: 26px; color: var(--gold-bright); margin-left: 4px; }
-  .screen .live { position: absolute; top: 14px; left: 14px; font-family: var(--sans); font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #fff; background: #B4272E; padding: 4px 10px; border-radius: 100px; display: inline-flex; align-items: center; gap: 6px; }
-  .screen .live::before { content:""; width: 7px; height: 7px; border-radius: 50%; background: #fff; animation: pulse 1.6s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-  .watch h2 { font-size: clamp(26px,3.4vw,36px); margin: 8px 0 0; }
-  .watch p { color: var(--ink-soft); font-size: 17px; margin: 16px 0 0; }
-  .platrow { display: flex; gap: 12px; margin-top: 22px; flex-wrap: wrap; }
-
-  /* giving band */
-  .giving { background: radial-gradient(90% 140% at 15% 0%, rgba(122,31,43,.10), transparent), var(--parchment-2); }
-  .give-inner { display: grid; grid-template-columns: 1fr auto; gap: 40px; align-items: center; }
-  .give-inner h2 { font-size: clamp(26px,3.6vw,38px); margin: 8px 0 0; max-width: 18ch; text-wrap: balance; }
-  .give-inner p { color: var(--ink-soft); font-size: 16.5px; margin: 14px 0 0; max-width: 52ch; }
-  .give-card { background: var(--card); border: 1px solid var(--line); border-radius: 18px; padding: 26px; width: 340px; max-width: 100%; box-shadow: var(--shadow-lg); }
-  .give-card .toggle { display: flex; background: var(--parchment-2); border-radius: 100px; padding: 4px; margin-bottom: 18px; }
-  .give-card .toggle button { flex: 1; border: none; background: none; font-family: var(--sans); font-size: 14px; font-weight: 600; padding: 9px; border-radius: 100px; cursor: pointer; color: var(--ink-soft); }
-  .give-card .toggle button.on { background: var(--oxblood); color: #F6ECD8; }
-  .tiers { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-bottom: 12px; }
-  .tiers button { border: 1.5px solid var(--line); background: var(--parchment); border-radius: 10px; padding: 13px 0; font-family: var(--serif); font-size: 18px; cursor: pointer; color: var(--ink); transition: border-color .12s, background .12s; }
-  .tiers button:hover, .tiers button.on { border-color: var(--gold); background: rgba(184,145,46,.1); }
-  .give-card .note { font-size: 12px; color: var(--taupe); margin: 12px 0 0; text-align: center; }
-
-  /* ministries */
-  .mins { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 14px; }
-  .min { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px; box-shadow: var(--shadow); transition: transform .14s ease, box-shadow .14s; }
-  .min:hover { transform: translateY(-3px); box-shadow: var(--shadow-lg); }
-  .min .ic { color: var(--oxblood); width: 26px; height: 26px; margin-bottom: 12px; }
-  .min h3 { font-size: 17px; margin: 0 0 5px; }
-  .min p { margin: 0; font-size: 13.5px; color: var(--ink-soft); }
-
-  /* newsletter */
-  .news { background: linear-gradient(165deg, var(--midnight), #101A30); color: #E9EEF7; border-radius: 20px; padding: 44px; text-align: center; box-shadow: var(--shadow-lg); }
-  .news h2 { color: #fff; font-size: clamp(24px,3.2vw,32px); margin: 0; text-wrap: balance; }
-  .news p { color: #C3CEE2; margin: 12px auto 0; max-width: 48ch; }
-  .news form { display: flex; gap: 10px; max-width: 440px; margin: 24px auto 0; }
-  .news input { flex: 1; border: 1px solid rgba(201,162,39,.4); background: rgba(255,255,255,.06); color: #fff; border-radius: 100px; padding: 13px 20px; font-family: var(--sans); font-size: 15px; }
-  .news input::placeholder { color: #9FB0CC; }
-  .news .fine { font-size: 12.5px; color: #92A2C0; margin-top: 14px; }
-
-  /* footer */
-  footer.site { background: var(--card); border-top: 1px solid var(--line); margin-top: 0; }
-  .foot { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 34px; padding: 56px 0 30px; }
-  .foot .brand2 { display: flex; align-items: center; gap: 11px; margin-bottom: 14px; }
-  .foot .brand2 .mark { width: 40px; height: 40px; color: var(--oxblood); }
-  .foot .brand2 b { font-family: var(--serif); font-size: 20px; }
-  .foot p { color: var(--ink-soft); font-size: 14.5px; margin: 4px 0; }
-  .foot h4 { font-family: var(--sans); text-transform: uppercase; letter-spacing: .12em; font-size: 12px; color: var(--taupe); margin: 0 0 14px; }
-  .foot a { color: var(--ink-soft); text-decoration: none; display: block; font-size: 14.5px; padding: 4px 0; }
-  .foot a:hover { color: var(--oxblood); }
-  .socials { display: flex; gap: 10px; margin-top: 14px; }
-  .socials a { width: 38px; height: 38px; border-radius: 10px; border: 1px solid var(--line); display: grid; place-content: center; color: var(--ink-soft); }
-  .socials a:hover { border-color: var(--gold); color: var(--oxblood); }
-  .socials svg { width: 18px; height: 18px; }
-  .subfoot { border-top: 1px solid var(--line); padding: 18px 0 30px; text-align: center; color: var(--taupe); font-size: 12.5px; }
-
-  @media (max-width: 860px) {
-    .nav nav, .infobar .badge { display: none; }
-    .menubtn { display: inline-grid; }
-    .welcome, .sched, .watch, .give-inner, .foot { grid-template-columns: 1fr; }
-    .give-inner { justify-items: start; }
-    .give-card { width: 100%; }
-    .portrait { max-width: 260px; margin: 0 auto; }
-  }
-</style>
-
-<div class="protobar">✦ <b>Design prototype</b> — a proposed new homepage for Saint Elias. Sample schedule &amp; text are placeholders for the parish to confirm. Nothing here is live yet.</div>
+<div class="protobar">✦ <b>Design preview</b> — a proposed new site for Saint Elias, for parish review. Some text &amp; schedule details are placeholders to confirm. Nothing here is live yet.</div>
 
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="#top">
+    <a class="brand" href="index.html">
       <svg class="mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
         <path d="M12 1.5v21M6.5 7.5h11M4 13.5c0 4.7 3.7 8.2 8 8.2s8-3.5 8-8.2" stroke-linecap="round"/>
         <path d="M12 1.5c1.7 1.6 1.7 4.5 0 6.1-1.7-1.6-1.7-4.5 0-6.1z" fill="currentColor" stroke="none"/>
@@ -272,14 +55,25 @@
       <span style="line-height:1"><b>Saint Elias</b><span>Antiochian Orthodox</span></span>
     </a>
     <nav>
-      <a href="#visit">Plan Your Visit</a>
-      <a href="#services">Services</a>
-      <a href="#watch">Watch Live</a>
-      <a href="#welcome">About</a>
-      <a href="#ministries">Ministries</a>
+      <a href="visit.html">Plan Your Visit</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="events.html">Events</a>
+      <a href="watch.html">Watch Live</a>
     </nav>
-    <a class="btn btn-primary" href="#give">Give</a>
-    <button class="btn btn-outline menubtn" aria-label="Menu">☰</button>
+    <a class="btn btn-primary" href="give.html">Give</a>
+    <button class="btn menubtn" aria-label="Menu" aria-expanded="false" aria-controls="mobile-nav">☰</button>
+  </div>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="visit.html">Plan Your Visit</a>
+    <a href="services.html">Services &amp; Schedule</a>
+    <a href="about.html">About &amp; Clergy</a>
+    <a href="events.html">Events &amp; Fundraisers</a>
+    <a href="ministries.html">Ministries</a>
+    <a href="watch.html">Watch Live</a>
+    <a href="new-members.html">Become Orthodox</a>
+    <a href="give.html">Give</a>
+    <a href="contact.html">Contact</a>
   </div>
 </header>
 
@@ -295,8 +89,8 @@
     <h1>A home for the ancient faith in Arvada</h1>
     <p class="patron">An Eastern Orthodox parish of the Antiochian Archdiocese, gathered around the Prophet Elias — where anyone, whatever their background, is welcome to come and see.</p>
     <div class="hero-cta">
-      <a class="btn btn-gold" href="#visit">Plan Your Visit</a>
-      <a class="btn btn-ghost" href="#watch">▶ &nbsp;Watch a Liturgy</a>
+      <a class="btn btn-gold" href="visit.html">Plan Your Visit</a>
+      <a class="btn btn-ghost" href="watch.html">▶ &nbsp;Watch a Liturgy</a>
     </div>
     <div class="times" role="group" aria-label="Weekly services">
       <div class="t"><div class="lbl">Sunday</div><div class="val">10:00 AM</div><div class="sub">Divine Liturgy</div></div>
@@ -308,8 +102,8 @@
 
 <div class="infobar">
   <div class="wrap">
-    <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-11a7 7 0 1114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><a href="#" >7580 Pierce St, Arvada, CO 80003</a></span>
-    <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L20 13l1 4v3a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg><a href="tel:">Call the parish office</a></span>
+    <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-11a7 7 0 1114 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg><a href="contact.html">7580 Pierce St, Arvada, CO 80003</a></span>
+    <span class="i"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L20 13l1 4v3a1 1 0 01-1 1A16 16 0 014 5a1 1 0 011-1z"/></svg><a href="contact.html">Contact the parish office</a></span>
     <span class="i badge spacer">✦ Everyone welcome — no experience needed</span>
   </div>
 </div>
@@ -330,6 +124,7 @@
       <div class="sig">— Fr. George Shawareb, Pastor
         <small>Saint Elias Antiochian Orthodox Church</small>
       </div>
+      <div style="margin-top:22px"><a class="btn btn-outline" href="about.html">Meet our parish &amp; clergy</a></div>
     </div>
   </div>
 </section>
@@ -350,6 +145,7 @@
       <div class="xcard"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21c-5-3-8-6.5-8-11a4 4 0 018-1 4 4 0 018 1c0 4.5-3 8-8 11z"/></svg></div><h3>Bring the kids</h3><p>Children are a joy, not a distraction. Wiggles and whispers are completely at home in an Orthodox parish.</p></div>
       <div class="xcard"><div class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><h3>Questions? Just ask</h3><p>Fr. George loves meeting newcomers. Reach out before you come, or find him after the Liturgy — there's no such thing as a silly question.</p></div>
     </div>
+    <div class="center" style="margin-top:34px"><a class="btn btn-primary btn-lg" href="visit.html">Read the full visitor's guide</a></div>
   </div>
 </section>
 
@@ -369,10 +165,10 @@
         <div class="row"><div class="day">Weekdays</div><div class="svc"><b>Feast Day Liturgies</b><span>See the calendar for the current month</span></div><div class="time">Varies</div></div>
       </div>
       <div class="season">
-        <p class="eyebrow">This Season</p>
-        <h3>The Apostles' Fast</h3>
-        <p>We journey toward the feast of Saints Peter &amp; Paul. Join us for the added services of the season, and see the full liturgical calendar for feast days, fasting guidance, and commemorations.</p>
-        <div class="add"><a class="btn btn-gold" href="#">View Full Calendar</a></div>
+        <p class="eyebrow">Holy Week &amp; Feasts</p>
+        <h3>Follow the liturgical year</h3>
+        <p>From the Nativity to Holy Week and Pascha, the great feasts have their own added services — many celebrated in both English and Arabic. See the full schedule and the current season's services.</p>
+        <div class="add"><a class="btn btn-gold" href="services.html">View Full Schedule</a></div>
       </div>
     </div>
   </div>
@@ -389,11 +185,11 @@
     <div>
       <p class="eyebrow">Watch Live &amp; Sermons</p>
       <h2>Can't be with us in person?</h2>
-      <p>Every Divine Liturgy is streamed live on YouTube and Facebook, so the homebound, the traveling, and the curious can pray alongside us. Missed a Sunday? Browse the homily archive by date and feast.</p>
+      <p>Every Divine Liturgy is streamed live on Facebook, so the homebound, the traveling, and the curious can pray alongside us. Missed a Sunday? Browse past liturgies and homilies any time.</p>
       <div class="platrow">
-        <a class="btn btn-outline" href="#">▶ &nbsp;YouTube</a>
-        <a class="btn btn-outline" href="#">Facebook Live</a>
-        <a class="btn btn-outline" href="#">Homily Archive</a>
+        <a class="btn btn-outline" href="watch.html">▶ &nbsp;Watch Live</a>
+        <a class="btn btn-outline" href="https://www.facebook.com/1407101529501239">Facebook</a>
+        <a class="btn btn-outline" href="https://www.tiktok.com/@sainteliascolorado">TikTok</a>
       </div>
     </div>
   </div>
@@ -405,7 +201,7 @@
     <div>
       <p class="eyebrow">Stewardship &amp; Giving</p>
       <h2>Support the life of the parish</h2>
-      <p>Your stewardship sustains the worship, ministries, and outreach of Saint Elias — from candles and coffee hour to caring for those in need. Give once, or become a monthly steward. Saint Elias is a registered 501(c)(3); gifts are tax-deductible and receipted.</p>
+      <p>Your stewardship sustains the worship, ministries, and outreach of Saint Elias — from candles and coffee hour to caring for those in need. Give once, or become a monthly steward.</p>
     </div>
     <div class="give-card">
       <div class="toggle"><button class="on">Monthly</button><button>One-time</button></div>
@@ -413,8 +209,8 @@
         <button>$25</button><button class="on">$50</button><button>$100</button>
         <button>$150</button><button>$250</button><button>Other</button>
       </div>
-      <a class="btn btn-gold" href="#" style="width:100%; justify-content:center; margin-top:6px;">Give $50 Monthly</a>
-      <p class="note">Secure giving · Recurring or one-time · Tax-deductible</p>
+      <a class="btn btn-gold" href="give.html" style="width:100%; justify-content:center; margin-top:6px;">Continue to Give</a>
+      <p class="note">Secure giving · Recurring or one-time</p>
     </div>
   </div>
 </section>
@@ -428,13 +224,14 @@
       <p>More than a Sunday service — a family serving God and neighbor throughout the week.</p>
     </div>
     <div class="mins">
-      <div class="min"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21c-5-3-8-6.5-8-11a4 4 0 018-1 4 4 0 018 1c0 4.5-3 8-8 11z"/></svg><h3>Sunday School</h3><p>Forming the next generation in the faith, ages 3 through high school.</p></div>
-      <div class="min"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l12-2v13M9 13l12-2" stroke-linecap="round"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><h3>Choir &amp; Chant</h3><p>Byzantine and Arabic chant that carries our prayer to heaven.</p></div>
-      <div class="min"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M15 20c0-2.4 1-4 3.5-4.2" stroke-linecap="round"/></svg><h3>Youth &amp; Young Adults</h3><p>Fellowship, service, and retreats for teens and college-age.</p></div>
-      <div class="min"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M3 8h4l2-3 3 4 2-2 3 3h4" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Adult Education</h3><p>Bible study and inquirers' classes for those becoming Orthodox.</p></div>
-      <div class="min"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 8.5C20 5.5 17.5 3 12 3S4 5.5 4 8.5c0 6 8 12.5 8 12.5s8-6.5 8-12.5z"/></svg><h3>Outreach &amp; Charity</h3><p>Serving the poor and welcoming the stranger in our city.</p></div>
-      <div class="min"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16" /></svg><h3>Annual Festival</h3><p>Our beloved celebration of Middle-Eastern food, faith, and family.</p></div>
+      <a class="min" href="sunday-school.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 21c-5-3-8-6.5-8-11a4 4 0 018-1 4 4 0 018 1c0 4.5-3 8-8 11z"/></svg><h3>Sunday School</h3><p>Forming the next generation in the faith, from little ones through high school.</p></a>
+      <a class="min" href="ministries.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M9 18V5l12-2v13M9 13l12-2" stroke-linecap="round"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg><h3>Choir &amp; Chant</h3><p>Byzantine and Arabic chant that carries our prayer to heaven.</p></a>
+      <a class="min" href="ministries.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.4"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5M15 20c0-2.4 1-4 3.5-4.2" stroke-linecap="round"/></svg><h3>Youth &amp; Young Adults</h3><p>Fellowship, service, and retreats for teens and college-age.</p></a>
+      <a class="min" href="new-members.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3v18M3 8h4l2-3 3 4 2-2 3 3h4" stroke-linecap="round" stroke-linejoin="round"/></svg><h3>Adult Education</h3><p>Bible study and inquirers' classes for those becoming Orthodox.</p></a>
+      <a class="min" href="ministries.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 8.5C20 5.5 17.5 3 12 3S4 5.5 4 8.5c0 6 8 12.5 8 12.5s8-6.5 8-12.5z"/></svg><h3>Outreach &amp; Charity</h3><p>Serving the poor and welcoming the stranger in our city.</p></a>
+      <a class="min" href="events.html"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 4v16" /></svg><h3>Events &amp; Fellowship</h3><p>The Annual Festival, golf tournament, and parish celebrations.</p></a>
     </div>
+    <div class="center" style="margin-top:34px"><a class="btn btn-outline" href="ministries.html">Explore all ministries</a></div>
   </div>
 </section>
 
@@ -471,35 +268,24 @@
     </div>
     <div>
       <h4>Visit</h4>
-      <a href="#visit">Plan Your Visit</a>
-      <a href="#services">Services &amp; Schedule</a>
-      <a href="#watch">Watch Live</a>
-      <a href="#">Calendar</a>
-      <a href="#">Explore Orthodoxy</a>
+      <a href="visit.html">Plan Your Visit</a>
+      <a href="services.html">Services &amp; Schedule</a>
+      <a href="watch.html">Watch Live</a>
+      <a href="new-members.html">Becoming Orthodox</a>
+      <a href="contact.html">Contact &amp; Directions</a>
     </div>
     <div>
       <h4>Parish</h4>
-      <a href="#welcome">About &amp; Clergy</a>
-      <a href="#ministries">Ministries</a>
-      <a href="#">Sacraments</a>
-      <a href="#give">Giving</a>
-      <a href="#">Contact</a>
+      <a href="about.html">About &amp; Clergy</a>
+      <a href="ministries.html">Ministries</a>
+      <a href="sunday-school.html">Sunday School</a>
+      <a href="events.html">Events &amp; Fundraisers</a>
+      <a href="give.html">Give</a>
     </div>
   </div>
-  <div class="subfoot">© 2026 Saint Elias Antiochian Orthodox Church · Arvada, Colorado · المسيح في وسطنا</div>
+  <div class="subfoot">© 2026 Saint Elias Antiochian Orthodox Church · Arvada, Colorado · <span class="ar">المسيح في وسطنا</span></div>
 </footer>
 
-<script>
-  // demo interactions
-  document.querySelectorAll('.tiers button').forEach(b => b.addEventListener('click', () => {
-    document.querySelectorAll('.tiers button').forEach(x => x.classList.remove('on'));
-    b.classList.add('on');
-  }));
-  document.querySelectorAll('.give-card .toggle button').forEach(b => b.addEventListener('click', () => {
-    document.querySelectorAll('.give-card .toggle button').forEach(x => x.classList.remove('on'));
-    b.classList.add('on');
-  }));
-</script>
-
+<script src="site.js"></script>
 </body>
 </html>
