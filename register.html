@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Register for the 3rd St. Elias Invitational Golf Scramble — reserve a tee time or become a sponsor. Secure checkout via PayPal.">
+<title>Golf Registration — Saint Elias Orthodox Church</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<style>
+  .reg-wrap{max-width:920px;margin:0 auto;padding:0 20px}
+  .reg-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:22px 0}
+  .prod{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+    padding:20px;display:flex;flex-direction:column;gap:8px}
+  .prod h3{margin:0;font-size:19px}
+  .prod .blurb{color:var(--ink-soft);font-size:14px;flex:1}
+  .prod .price{font-family:var(--serif);font-size:24px;color:var(--oxblood)}
+  .prod .price s{color:var(--taupe);font-size:16px;margin-right:8px;font-family:inherit}
+  .prod button{margin-top:6px}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+    padding:26px;margin:22px 0}
+  .panel h3{margin:0 0 4px}
+  .panel .sub{color:var(--ink-soft);font-size:14px;margin:0 0 18px}
+  .fld{margin-bottom:14px}
+  .fld label{display:block;font-size:13px;font-weight:600;margin-bottom:5px}
+  .fld input{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:15px;background:#fff}
+  .fld .note{font-size:13px;color:var(--ink-soft);background:#faf6ee;border:1px dashed var(--line);
+    border-radius:10px;padding:10px 12px}
+  .qty{display:flex;align-items:center;gap:10px}
+  .qty input{width:90px}
+  #paypal-box{margin-top:18px;min-height:48px}
+  .msg{padding:14px 16px;border-radius:12px;font-size:14px;margin:12px 0}
+  .msg.err{background:rgba(122,31,43,.08);color:var(--oxblood)}
+  .msg.info{background:#faf6ee;color:var(--ink-soft);border:1px solid var(--line)}
+  .done{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--gold);
+    border-radius:16px;box-shadow:var(--shadow);padding:30px;text-align:center;margin:26px 0}
+  .done .big{font-size:40px}
+  .done h2{margin:8px 0 6px}
+  .linkback{display:inline-block;margin-top:6px}
+</style>
+</head>
+<body>
+
+<div class="protobar">✦ <b>Design preview</b> — Saint Elias registration. In <b>test mode</b> no real charge is made.</div>
+
+<header class="site">
+  <div class="wrap nav">
+    <a class="brand" href="index.html"><img class="brand-logo" src="assets/logo.png" alt="Saint Elias Antiochian Orthodox Church" width="212" height="90"></a>
+    <nav>
+      <a href="visit.html">Plan Your Visit</a>
+      <a href="services.html">Services</a>
+      <a href="about.html">About</a>
+      <a href="events.html" class="active">Events</a>
+      <a href="watch.html">Watch Live</a>
+    </nav>
+    <a class="btn btn-primary" href="give.html">Give</a>
+  </div>
+</header>
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <p class="greet">3rd St. Elias Invitational Golf Scramble</p>
+    <h1>Register &amp; Sponsor</h1>
+    <p class="lede" id="eventLine">Monday, September 21, 2026 · Blackstone Country Club, Aurora</p>
+  </div>
+</div>
+
+<section class="band">
+  <div class="reg-wrap">
+
+    <div id="notReady" class="msg info" hidden>
+      Online registration is being set up. In the meantime, please contact the parish to register or sponsor.
+    </div>
+
+    <div id="catalog" class="reg-grid" aria-live="polite"></div>
+
+    <div id="panel" class="panel" hidden>
+      <h3 id="pName"></h3>
+      <p class="sub" id="pSub"></p>
+      <form id="regForm" autocomplete="on"></form>
+      <div id="formMsg"></div>
+      <div id="paypal-box"></div>
+      <div style="margin-top:14px">
+        <button class="btn btn-outline" type="button" id="cancelBtn">← Choose a different option</button>
+      </div>
+    </div>
+
+    <div id="done" class="done" hidden>
+      <div class="big">✓</div>
+      <h2>Thank you — you're registered!</h2>
+      <p id="doneMsg" class="sub"></p>
+      <p class="sub">A confirmation has been sent to the parish. We look forward to seeing you on the greens.</p>
+      <a class="btn btn-gold linkback" href="events.html">Back to Events</a>
+    </div>
+
+  </div>
+</section>
+
+<script>
+let CONFIG=null, CURRENT=null, PP_LOADED=false;
+const $=(s)=>document.querySelector(s);
+const money=(n)=>"$"+Number(n).toLocaleString("en-US",{minimumFractionDigits:0,maximumFractionDigits:0});
+
+async function boot(){
+  try{
+    const res=await fetch("/api/config");
+    CONFIG=await res.json();
+  }catch(e){ CONFIG={paymentsReady:false,catalog:{products:[]}}; }
+
+  if(CONFIG.catalog?.events?.golf){
+    const g=CONFIG.catalog.events.golf;
+    $("#eventLine").textContent = g.date + " · " + g.location;
+  }
+  if(!CONFIG.paymentsReady){ $("#notReady").hidden=false; }
+  renderCatalog();
+}
+
+function renderCatalog(){
+  const box=$("#catalog"); box.innerHTML="";
+  const products=(CONFIG.catalog?.products||[]).filter(p=>p.event==="golf");
+  for(const p of products){
+    const el=document.createElement("div");
+    el.className="prod";
+    el.innerHTML =
+      `<h3>${p.name}</h3>`+
+      `<div class="blurb">${p.blurb||""}</div>`+
+      `<div class="price">${p.compareAt?`<s>${money(p.compareAt)}</s>`:""}${money(p.price)}</div>`+
+      `<button class="btn btn-gold" type="button">Register →</button>`;
+    el.querySelector("button").addEventListener("click",()=>choose(p));
+    box.appendChild(el);
+  }
+}
+
+function choose(p){
+  CURRENT=p;
+  $("#catalog").hidden=true;
+  $("#panel").hidden=false;
+  $("#done").hidden=true;
+  $("#pName").textContent=p.name+" — "+money(p.price);
+  $("#pSub").textContent=p.blurb||"";
+  $("#formMsg").innerHTML="";
+  buildForm(p);
+  $("#panel").scrollIntoView({behavior:"smooth",block:"start"});
+  mountPayPal();
+}
+
+function buildForm(p){
+  const f=$("#regForm"); f.innerHTML="";
+  for(const fld of p.fields){
+    const wrap=document.createElement("div"); wrap.className="fld";
+    if(fld.type==="note"){
+      wrap.innerHTML=`<div class="note">${fld.label}</div>`;
+    }else{
+      wrap.innerHTML=`<label for="f_${fld.key}">${fld.label}${fld.required?' *':''}</label>`+
+        `<input id="f_${fld.key}" name="${fld.key}" type="${fld.type}" ${fld.required?"required":""}>`;
+    }
+    f.appendChild(wrap);
+  }
+  // Quantity only for per-person lunch.
+  if(p.id==="golf-lunch"){
+    const wrap=document.createElement("div"); wrap.className="fld qty";
+    wrap.innerHTML=`<label for="f_qty" style="margin:0">Quantity</label><input id="f_qty" type="number" min="1" max="20" value="1">`;
+    f.appendChild(wrap);
+  }
+}
+
+function collect(){
+  const details={};
+  for(const fld of CURRENT.fields){
+    if(fld.type==="note") continue;
+    const el=document.getElementById("f_"+fld.key);
+    if(el) details[fld.key]=el.value.trim();
+  }
+  return details;
+}
+function validate(){
+  for(const fld of CURRENT.fields){
+    if(fld.required){
+      const el=document.getElementById("f_"+fld.key);
+      if(el && !el.value.trim()){ el.focus(); return "Please fill in: "+fld.label.replace(" *",""); }
+    }
+  }
+  return null;
+}
+function quantity(){ const q=document.getElementById("f_qty"); return q?Math.max(1,parseInt(q.value,10)||1):1; }
+
+function loadSDK(){
+  return new Promise((resolve,reject)=>{
+    if(PP_LOADED) return resolve();
+    if(!CONFIG.paypalClientId) return reject(new Error("no-client"));
+    const s=document.createElement("script");
+    s.src=`https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(CONFIG.paypalClientId)}&currency=USD&intent=capture`;
+    s.onload=()=>{PP_LOADED=true;resolve();};
+    s.onerror=()=>reject(new Error("sdk-fail"));
+    document.head.appendChild(s);
+  });
+}
+
+async function mountPayPal(){
+  const box=$("#paypal-box"); box.innerHTML="";
+  if(!CONFIG.paymentsReady){
+    box.innerHTML=`<div class="msg info">Online payment isn't switched on yet. Please check back soon.</div>`;
+    return;
+  }
+  try{ await loadSDK(); }
+  catch(e){ box.innerHTML=`<div class="msg err">Payment couldn't load. Please refresh and try again.</div>`; return; }
+
+  paypal.Buttons({
+    style:{layout:"vertical",color:"gold",shape:"pill",label:"pay"},
+    onClick:(data,actions)=>{
+      const err=validate();
+      if(err){ $("#formMsg").innerHTML=`<div class="msg err">${err}</div>`; return actions.reject(); }
+      $("#formMsg").innerHTML=""; return actions.resolve();
+    },
+    createOrder: async ()=>{
+      const res=await fetch("/api/create-order",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({productId:CURRENT.id,quantity:quantity()})});
+      const d=await res.json();
+      if(!res.ok) throw new Error(d.error||"create failed");
+      return d.id;
+    },
+    onApprove: async (data)=>{
+      const res=await fetch("/api/capture-order",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({orderID:data.orderID,productId:CURRENT.id,quantity:quantity(),details:collect()})});
+      const d=await res.json();
+      if(!res.ok){ $("#formMsg").innerHTML=`<div class="msg err">${d.error||"Payment could not be completed."}</div>`; return; }
+      showDone(d);
+    },
+    onError:(err)=>{ console.error(err); $("#formMsg").innerHTML=`<div class="msg err">Something went wrong. No charge was made — please try again.</div>`; }
+  }).render("#paypal-box");
+}
+
+function showDone(d){
+  $("#panel").hidden=true; $("#catalog").hidden=true;
+  $("#done").hidden=false;
+  $("#doneMsg").textContent = `${d.productName} · ${d.amount?("$"+d.amount):""} · Order ${d.orderId}`;
+  $("#done").scrollIntoView({behavior:"smooth",block:"center"});
+}
+
+$("#cancelBtn").addEventListener("click",()=>{ $("#panel").hidden=true; $("#catalog").hidden=false; CURRENT=null; window.scrollTo({top:0,behavior:"smooth"}); });
+
+boot();
+</script>
+</body>
+</html>

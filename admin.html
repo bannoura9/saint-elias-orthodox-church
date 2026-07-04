@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Registrations — Saint Elias (Admin)</title>
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<style>
+  :root{
+    --parchment:#f6f1e7; --card:#fffdf8; --ink:#2b2320; --ink-soft:#5c5048;
+    --line:#e3d8c5; --gold:#b8892b; --oxblood:#7a1f2b; --green:#2f6b3f; --shadow:0 8px 30px rgba(60,40,20,.08);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:var(--parchment);color:var(--ink);line-height:1.5}
+  header.bar{display:flex;align-items:center;gap:14px;padding:16px 22px;background:var(--oxblood);color:#fff}
+  header.bar img{height:34px;width:auto;display:block}
+  header.bar h1{font-size:17px;margin:0;font-weight:600;letter-spacing:.2px}
+  header.bar .env{margin-left:auto;font-size:12px;opacity:.85;border:1px solid rgba(255,255,255,.4);
+    padding:3px 9px;border-radius:999px}
+  main{max-width:1180px;margin:0 auto;padding:22px}
+  .gate{max-width:380px;margin:12vh auto;background:var(--card);border:1px solid var(--line);
+    border-radius:16px;box-shadow:var(--shadow);padding:30px}
+  .gate h2{margin:0 0 6px;font-size:20px}
+  .gate p{margin:0 0 18px;color:var(--ink-soft);font-size:14px}
+  label{display:block;font-size:13px;font-weight:600;margin:0 0 6px}
+  input[type=password],input[type=text],select{width:100%;padding:11px 12px;border:1px solid var(--line);
+    border-radius:10px;font-size:15px;background:#fff}
+  button{cursor:pointer;font:inherit;border:0;border-radius:10px;padding:11px 16px;font-weight:600}
+  .btn-gold{background:var(--gold);color:#fff}
+  .btn-gold:hover{filter:brightness(1.05)}
+  .btn-ghost{background:#fff;border:1px solid var(--line);color:var(--ink)}
+  .err{color:var(--oxblood);font-size:13px;margin-top:10px;min-height:18px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:12px;align-items:end;margin-bottom:18px}
+  .toolbar .field{min-width:170px}
+  .toolbar .spacer{flex:1}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:20px}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;box-shadow:var(--shadow)}
+  .stat .n{font-size:26px;font-weight:700}
+  .stat .l{font-size:12.5px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:.4px;margin-top:2px}
+  .tablewrap{background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);overflow-x:auto}
+  table{border-collapse:collapse;width:100%;font-size:13.5px}
+  th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--line);white-space:nowrap;vertical-align:top}
+  th{background:#faf6ee;font-size:12px;text-transform:uppercase;letter-spacing:.4px;color:var(--ink-soft);position:sticky;top:0}
+  td.wrap{white-space:normal;min-width:220px}
+  .pill{display:inline-block;font-size:11.5px;font-weight:600;padding:2px 9px;border-radius:999px}
+  .pill.paid{background:rgba(47,107,63,.12);color:var(--green)}
+  .amt{font-variant-numeric:tabular-nums;font-weight:600}
+  .muted{color:var(--ink-soft)}
+  .empty{padding:40px;text-align:center;color:var(--ink-soft)}
+  .row-actions{display:flex;gap:10px;margin-top:16px;flex-wrap:wrap}
+  a.link{color:var(--oxblood);font-weight:600;text-decoration:none}
+  a.link:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+
+<div id="gate" class="gate">
+  <h2>Registrations portal</h2>
+  <p>Enter the shared admin password to view who has registered.</p>
+  <form id="gateForm">
+    <label for="pw">Admin password</label>
+    <input type="password" id="pw" autocomplete="current-password" required>
+    <div class="err" id="gateErr"></div>
+    <button class="btn-gold" type="submit" style="width:100%;margin-top:14px">View registrations</button>
+  </form>
+</div>
+
+<div id="app" hidden>
+  <header class="bar">
+    <img src="assets/logo.png" alt="Saint Elias" onerror="this.style.display='none'">
+    <h1>Registrations</h1>
+    <span class="env" id="envTag"></span>
+  </header>
+  <main>
+    <div class="toolbar">
+      <div class="field">
+        <label for="fEvent">Event</label>
+        <select id="fEvent"><option value="">All events</option></select>
+      </div>
+      <div class="field">
+        <label for="fProduct">Type</label>
+        <select id="fProduct"><option value="">All types</option></select>
+      </div>
+      <div class="field" style="flex:1;min-width:200px">
+        <label for="fSearch">Search</label>
+        <input type="text" id="fSearch" placeholder="Name, company, email…">
+      </div>
+      <button class="btn-ghost" id="refreshBtn" type="button">↻ Refresh</button>
+      <button class="btn-gold" id="csvBtn" type="button">Export CSV</button>
+    </div>
+
+    <div class="cards">
+      <div class="stat"><div class="n" id="sCount">—</div><div class="l">Registrations</div></div>
+      <div class="stat"><div class="n" id="sPlayers">—</div><div class="l">Golfers</div></div>
+      <div class="stat"><div class="n" id="sTotal">—</div><div class="l">Total raised</div></div>
+    </div>
+
+    <div class="tablewrap">
+      <table id="tbl">
+        <thead>
+          <tr>
+            <th>Date</th><th>Event</th><th>Type</th><th>Registrant</th>
+            <th>Details</th><th>Qty</th><th>Amount</th><th>Status</th><th>Order #</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden></div>
+    </div>
+
+    <div class="row-actions">
+      <button class="btn-ghost" id="logoutBtn" type="button">Log out</button>
+      <a class="link" href="/" >← Back to site</a>
+    </div>
+  </main>
+</div>
+
+<script>
+const KEY = "stelias_admin_key";
+let ORDERS = [];
+
+const $ = (s) => document.querySelector(s);
+const money = (n) => "$" + (Number(n)||0).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+const esc = (s) => String(s??"").replace(/[&<>"]/g,(c)=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+async function fetchOrders(key){
+  const res = await fetch("/api/registrations",{headers:{"x-admin-key":key}});
+  if(res.status===401) throw new Error("Wrong password.");
+  if(res.status===503){ const j=await res.json().catch(()=>({})); throw new Error(j.error||"Portal not configured yet."); }
+  if(!res.ok) throw new Error("Could not load registrations.");
+  const data = await res.json();
+  return data.orders||[];
+}
+
+function detailText(o){
+  const d = o.details||{};
+  const parts=[];
+  if(d.company) parts.push("Co: "+d.company);
+  ["player1","player2","player3","player4"].forEach((k,i)=>{ if(d[k]) parts.push("P"+(i+1)+": "+d[k]); });
+  if(d.name && !d.company) parts.push(d.name);
+  if(d.contactName) parts.push("Contact: "+d.contactName);
+  if(d.phone) parts.push("☎ "+d.phone);
+  return parts.join(" · ");
+}
+function registrant(o){
+  const d=o.details||{};
+  return d.company || d.contactName || d.name || d.player1 || o.payerName || o.payerEmail || "—";
+}
+
+function render(){
+  const ev=$("#fEvent").value, pr=$("#fProduct").value, q=$("#fSearch").value.trim().toLowerCase();
+  const rows = ORDERS.filter(o=>{
+    if(ev && o.event!==ev) return false;
+    if(pr && o.productId!==pr) return false;
+    if(q){
+      const hay=(JSON.stringify(o.details||{})+" "+(o.payerName||"")+" "+(o.payerEmail||"")+" "+(o.productName||"")).toLowerCase();
+      if(!hay.includes(q)) return false;
+    }
+    return true;
+  });
+
+  let players=0, total=0;
+  rows.forEach(o=>{
+    total += Number(o.amount)||0;
+    const d=o.details||{};
+    ["player1","player2","player3","player4"].forEach(k=>{ if(d[k]) players++; });
+  });
+  $("#sCount").textContent = rows.length;
+  $("#sPlayers").textContent = players;
+  $("#sTotal").textContent = money(total);
+
+  const tb=$("#tbody"); tb.innerHTML="";
+  $("#empty").hidden = rows.length>0;
+  $("#empty").textContent = ORDERS.length? "No registrations match your filters." : "No registrations yet.";
+
+  rows.sort((a,b)=> String(b.paidAt||"").localeCompare(String(a.paidAt||"")));
+  for(const o of rows){
+    const tr=document.createElement("tr");
+    const date = o.paidAt ? new Date(o.paidAt).toLocaleString("en-US",{month:"short",day:"numeric",year:"numeric",hour:"numeric",minute:"2-digit"}) : "—";
+    tr.innerHTML =
+      `<td class="muted">${esc(date)}</td>`+
+      `<td>${esc(o.event||"")}</td>`+
+      `<td>${esc(o.productName||"")}</td>`+
+      `<td>${esc(registrant(o))}<div class="muted">${esc(o.payerEmail||"")}</div></td>`+
+      `<td class="wrap">${esc(detailText(o))}</td>`+
+      `<td>${esc(o.quantity||1)}</td>`+
+      `<td class="amt">${money(o.amount)}</td>`+
+      `<td><span class="pill paid">${esc(o.status||"paid")}</span></td>`+
+      `<td class="muted">${esc(o.orderId||"")}</td>`;
+    tb.appendChild(tr);
+  }
+}
+
+function buildFilters(){
+  const events=[...new Set(ORDERS.map(o=>o.event).filter(Boolean))].sort();
+  const prods=[...new Map(ORDERS.map(o=>[o.productId,o.productName])).entries()].filter(([k])=>k);
+  $("#fEvent").innerHTML = `<option value="">All events</option>`+events.map(e=>`<option value="${esc(e)}">${esc(e)}</option>`).join("");
+  $("#fProduct").innerHTML = `<option value="">All types</option>`+prods.map(([k,v])=>`<option value="${esc(k)}">${esc(v)}</option>`).join("");
+}
+
+function exportCSV(){
+  const cols=["paidAt","event","productName","registrant","email","details","quantity","amount","status","orderId"];
+  const lines=[cols.join(",")];
+  for(const o of ORDERS){
+    const rec={paidAt:o.paidAt||"",event:o.event||"",productName:o.productName||"",registrant:registrant(o),
+      email:o.payerEmail||"",details:detailText(o),quantity:o.quantity||1,amount:o.amount||"",status:o.status||"",orderId:o.orderId||""};
+    lines.push(cols.map(c=>`"${String(rec[c]).replace(/"/g,'""')}"`).join(","));
+  }
+  const blob=new Blob([lines.join("\n")],{type:"text/csv"});
+  const a=document.createElement("a");
+  a.href=URL.createObjectURL(blob); a.download="stelias-registrations.csv"; a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+async function load(key){
+  ORDERS = await fetchOrders(key);
+  buildFilters(); render();
+}
+
+async function enter(key){
+  await load(key);
+  sessionStorage.setItem(KEY,key);
+  $("#gate").hidden=true; $("#app").hidden=false;
+  fetch("/api/config").then(r=>r.json()).then(c=>{ $("#envTag").textContent = c.paypalEnv==="live"?"LIVE":"TEST MODE"; }).catch(()=>{});
+}
+
+$("#gateForm").addEventListener("submit", async (e)=>{
+  e.preventDefault();
+  $("#gateErr").textContent="";
+  try{ await enter($("#pw").value); }
+  catch(err){ $("#gateErr").textContent = err.message; }
+});
+$("#refreshBtn").addEventListener("click", ()=> load(sessionStorage.getItem(KEY)).catch(e=>alert(e.message)));
+$("#csvBtn").addEventListener("click", exportCSV);
+["fEvent","fProduct","fSearch"].forEach(id=>$("#"+id).addEventListener("input",render));
+$("#logoutBtn").addEventListener("click", ()=>{ sessionStorage.removeItem(KEY); location.reload(); });
+
+// Auto-enter if we already have a key this session.
+const saved = sessionStorage.getItem(KEY);
+if(saved){ enter(saved).catch(()=>{ sessionStorage.removeItem(KEY); }); }
+</script>
+</body>
+</html>
