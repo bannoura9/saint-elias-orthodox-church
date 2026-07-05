@@ -30,6 +30,8 @@
     { "source": "/sunday-school-1", "destination": "/sunday-school", "permanent": true },
     { "source": "/terms-and-conditions", "destination": "/terms", "permanent": true },
     { "source": "/m/create-account", "destination": "/", "permanent": true },
-    { "source": "/m/:path*", "destination": "/", "permanent": true }
+    { "source": "/m/:path*", "destination": "/", "permanent": true },
+    { "source": "/f/parish-life-conference", "destination": "/events", "permanent": true },
+    { "source": "/f/:path*", "destination": "/", "permanent": true }
   ]
 }
