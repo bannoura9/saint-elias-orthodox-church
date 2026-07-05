@@ -6,5 +6,9 @@
     "api/*.js": {
       "maxDuration": 15
     }
-  }
+  },
+  "redirects": [
+    { "source": "/shop", "destination": "https://shop.steliasarvada.com/shop", "permanent": false },
+    { "source": "/shop/:path*", "destination": "https://shop.steliasarvada.com/shop/:path*", "permanent": false }
+  ]
 }
