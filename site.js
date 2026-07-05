@@ -24,6 +24,23 @@
     });
   });
 
+  // Give card → PayPal donate with the chosen amount + frequency
+  var giveBtn = document.getElementById('giveBtn');
+  if (giveBtn) {
+    giveBtn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var amtBtn = document.querySelector('.give-card .tiers button.on');
+      var freqBtn = document.querySelector('.give-card .toggle button.on');
+      var amt = amtBtn ? amtBtn.textContent.replace(/[^0-9.]/g, '') : '';
+      var monthly = freqBtn && /month/i.test(freqBtn.textContent);
+      var url = 'https://www.paypal.com/donate/?business=' + encodeURIComponent('frgeorgeshawareb@yahoo.com') +
+        '&currency_code=USD&item_name=' + encodeURIComponent(monthly ? 'Saint Elias Church — Monthly Stewardship' : 'Saint Elias Church Donation') +
+        '&no_recurring=' + (monthly ? '0' : '1');
+      if (amt) url += '&amount=' + amt;
+      window.open(url, '_blank', 'noopener');
+    });
+  }
+
   // Parish forms (contact, volunteer) — route submitters to phone + live chat
   document.querySelectorAll('form[data-parish-form]').forEach(function (f) {
     f.addEventListener('submit', function (e) {
