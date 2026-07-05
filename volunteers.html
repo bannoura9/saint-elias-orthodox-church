@@ -179,7 +179,7 @@
       <h2>Ready to help?</h2>
       <p>Tell us a little about yourself and where you'd like to serve. A ministry leader will reach out to welcome you and answer any questions.</p>
     </div>
-    <form class="form" data-parish-form="Thank you for your heart to serve! Please call the parish office at (303) 949-5809 or use the live chat and a ministry leader will reach out to welcome you.">
+    <form class="form" data-endpoint="https://formsubmit.co/ajax/steliascolorado@gmail.com" data-subject="New volunteer interest from the Saint Elias website">
       <div>
         <label for="v-name">Name</label>
         <input id="v-name" name="name" type="text" placeholder="Your full name" autocomplete="name">
@@ -210,6 +210,7 @@
         <textarea id="v-message" name="message" placeholder="Tell us a bit about yourself, your availability, or any questions…"></textarea>
       </div>
       <div>
+        <input type="text" name="_honey" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute; left:-9999px;">
         <button class="btn btn-gold btn-lg" type="submit">Send my interest</button>
       </div>
       <p class="note form-status" hidden aria-live="polite" style="font-size:13.5px; color:var(--gold); margin:0;"></p>

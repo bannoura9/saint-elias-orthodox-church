@@ -41,7 +41,37 @@
     });
   }
 
-  // Parish forms (contact, volunteer) — route submitters to phone + live chat
+  // Parish forms that actually send (contact, volunteer) — via FormSubmit AJAX
+  document.querySelectorAll('form[data-endpoint]').forEach(function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var s = f.querySelector('.form-status');
+      var btn = f.querySelector('button[type="submit"]');
+      var label = btn ? btn.textContent : '';
+      if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
+      var data = {};
+      Array.prototype.forEach.call(f.elements, function (el) {
+        if (el.name && el.type !== 'submit') data[el.name] = el.value;
+      });
+      data._subject = f.getAttribute('data-subject') || 'New message from the Saint Elias website';
+      data._template = 'table';
+      function show(msg) { if (s) { s.hidden = false; s.textContent = msg; } }
+      fetch(f.getAttribute('data-endpoint'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      }).then(function (r) { return r.json(); }).then(function () {
+        show('Thank you — your message has been sent. Someone from the parish will be in touch soon.');
+        f.reset();
+        if (btn) { btn.textContent = 'Sent ✓'; }
+      }).catch(function () {
+        show('Sorry, something went wrong. Please call us at (303) 949-5809 or use the live chat and we\'ll respond right away.');
+        if (btn) { btn.disabled = false; btn.textContent = label; }
+      });
+    });
+  });
+
+  // Parish forms (informational, e.g. newsletter) — route submitters to phone + live chat
   document.querySelectorAll('form[data-parish-form]').forEach(function (f) {
     f.addEventListener('submit', function (e) {
       e.preventDefault();
