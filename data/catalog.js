@@ -117,8 +117,16 @@ export function getProduct(id) {
 
 // Public, safe-to-expose view of the catalog for the browser.
 export function publicCatalog() {
+  // Strip internal contact metadata (e.g. sponsorEmail) from the public events
+  // so it isn't harvestable from /api/config. Coordinator contact still appears
+  // only where a sponsor needs it (the logoNote field on sponsorship products).
+  const events = {};
+  for (const [key, e] of Object.entries(EVENTS)) {
+    const { sponsorEmail, ...pub } = e;
+    events[key] = pub;
+  }
   return {
-    events: EVENTS,
+    events,
     products: PRODUCTS.filter((p) => p.active).map((p) => ({
       id: p.id,
       event: p.event,
