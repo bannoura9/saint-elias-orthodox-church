@@ -24,6 +24,18 @@
     });
   });
 
+  // Parish forms (contact, volunteer) — route submitters to phone + live chat
+  document.querySelectorAll('form[data-parish-form]').forEach(function (f) {
+    f.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msg = f.getAttribute('data-parish-form');
+      var s = f.querySelector('.form-status');
+      if (s) { s.hidden = false; s.textContent = msg; }
+      var b = f.querySelector('button[type="submit"]');
+      if (b) { b.disabled = true; b.textContent = 'Thank you'; }
+    });
+  });
+
   // Tawk.to live chat widget (free) — loads on every page that includes site.js
   var Tawk_API = window.Tawk_API = window.Tawk_API || {};
   window.Tawk_LoadStart = window.Tawk_LoadStart || new Date();

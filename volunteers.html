@@ -179,7 +179,7 @@
       <h2>Ready to help?</h2>
       <p>Tell us a little about yourself and where you'd like to serve. A ministry leader will reach out to welcome you and answer any questions.</p>
     </div>
-    <form class="form" onsubmit="return false">
+    <form class="form" data-parish-form="Thank you for your heart to serve! Please call the parish office at (303) 949-5809 or use the live chat and a ministry leader will reach out to welcome you.">
       <div>
         <label for="v-name">Name</label>
         <input id="v-name" name="name" type="text" placeholder="Your full name" autocomplete="name">
@@ -212,7 +212,7 @@
       <div>
         <button class="btn btn-gold btn-lg" type="submit">Send my interest</button>
       </div>
-      <p class="note" style="font-size:12px; color:var(--taupe); margin:0;">This is a demo form for the design preview — it does not yet send. To volunteer today, please <a class="link" href="/contact">contact the parish office</a>.</p>
+      <p class="note form-status" hidden aria-live="polite" style="font-size:13.5px; color:var(--gold); margin:0;"></p>
     </form>
   </div>
 </section>
