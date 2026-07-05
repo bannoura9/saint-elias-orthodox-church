@@ -8,7 +8,7 @@
     }
   },
   "redirects": [
-    { "source": "/shop", "destination": "https://steliaschurch.godaddysites.com/shop", "permanent": false },
-    { "source": "/shop/:path*", "destination": "https://steliaschurch.godaddysites.com/shop/:path*", "permanent": false }
+    { "source": "/shop", "destination": "https://shop.steliasarvada.com/shop", "permanent": false },
+    { "source": "/shop/:path*", "destination": "https://shop.steliasarvada.com/shop/:path*", "permanent": false }
   ]
 }
