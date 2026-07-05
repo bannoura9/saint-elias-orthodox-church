@@ -9,6 +9,14 @@
   },
   "redirects": [
     { "source": "/shop", "destination": "https://shop.steliasarvada.com/shop", "permanent": false },
-    { "source": "/shop/:path*", "destination": "https://shop.steliasarvada.com/shop/:path*", "permanent": false }
+    { "source": "/shop/:path*", "destination": "https://shop.steliasarvada.com/shop/:path*", "permanent": false },
+    { "source": "/annual-festival", "destination": "/festival", "permanent": true },
+    { "source": "/donate", "destination": "/give", "permanent": true },
+    { "source": "/holy-week-schedule", "destination": "/services", "permanent": true },
+    { "source": "/privacy-policy", "destination": "/privacy", "permanent": true },
+    { "source": "/sunday-school-1", "destination": "/sunday-school", "permanent": true },
+    { "source": "/terms-and-conditions", "destination": "/terms", "permanent": true },
+    { "source": "/m/create-account", "destination": "/", "permanent": true },
+    { "source": "/m/:path*", "destination": "/", "permanent": true }
   ]
 }

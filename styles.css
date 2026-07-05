@@ -347,6 +347,8 @@ footer.site { background: var(--card); border-top: 1px solid var(--line); margin
 .socials a:hover { border-color: var(--gold); color: var(--oxblood); }
 .socials svg { width: 18px; height: 18px; }
 .subfoot { border-top: 1px solid var(--line); padding: 18px 0 30px; text-align: center; color: var(--taupe); font-size: 12.5px; }
+.subfoot a { color: var(--taupe); text-decoration: none; }
+.subfoot a:hover { color: var(--gold); text-decoration: underline; }
 
 /* ---------- utilities ---------- */
 .center { text-align: center; }
