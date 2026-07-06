@@ -1,0 +1,49 @@
+/* ---------------------------------------------------------------------------
+   Arabic (RTL) overrides — loaded ONLY on /ar/ pages, after styles.css.
+   Flips direction-sensitive rules and swaps in Arabic-friendly type.
+--------------------------------------------------------------------------- */
+
+:root {
+  /* Arabic type: naskh-style serif for headings, clean system sans for body */
+  --serif: "Geeza Pro", "Noto Naskh Arabic", "Traditional Arabic", "Times New Roman", serif;
+  --sans: "Geeza Pro", "Segoe UI", Tahoma, "Noto Sans Arabic", system-ui, sans-serif;
+}
+
+/* Honeypot inputs hide at left:-9999px; in RTL that extends the scrollable
+   canvas 10,000px leftward and wrecks the layout. Clip it. */
+html, body { overflow-x: hidden; }
+
+/* Arabic never uses letter-spacing; it breaks the connected script */
+body, .eyebrow, .protobar, .greet, .btn, h1, h2, h3, h4, .subfoot,
+.section-head p, .crumbs, nav a { letter-spacing: 0 !important; }
+
+/* Arabic needs a little more line-height to breathe */
+body { line-height: 1.75; }
+h1, h2, h3 { line-height: 1.35; }
+
+/* --- Flips (styles.css uses physical properties) --- */
+.brand { margin-right: 0; margin-left: auto; }
+.infobar .spacer { margin-left: 0; margin-right: auto; }
+.mobile-nav a.sub { padding-left: 0; padding-right: 40px; }
+.navdrop-menu { left: auto; right: -12px; }
+.prose ul, .prose ol { padding-left: 0; padding-right: 22px; }
+.prose blockquote { padding: 4px 22px 4px 0; border-left: none; border-right: 3px solid var(--gold); }
+.callout { border-left: 1px solid var(--line); border-right: 3px solid var(--gold); }
+.ny-box { border-left: 1px solid var(--line); border-right: 4px solid var(--gold); }
+.vendor-card { border-left: 1px solid var(--line) !important; border-right: 4px solid var(--gold) !important; }
+.pricing .p .amt .was { margin-right: 0; margin-left: 7px; }
+.pricing .p .amt .go { margin-left: 0; margin-right: 7px; }
+.times .t { border-right: none; border-left: 1px solid rgba(201,162,39,.22); }
+.times .t:last-child { border-left: none; }
+.screen .play svg { margin-left: 0; margin-right: 4px; }
+.screen .live { left: auto; right: 14px; }
+
+/* Breadcrumb separator points the right way in RTL */
+.crumbs span:not(:last-child) { display: inline-block; transform: scaleX(-1); }
+.crumbs { direction: rtl; }
+
+/* Keep LTR islands (addresses, phones, English words) tidy inside RTL text */
+[dir="ltr"] { unicode-bidi: isolate; }
+
+/* Language switch link in the nav */
+nav a.lang-switch { font-weight: 700; color: var(--gold); }

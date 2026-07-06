@@ -368,3 +368,6 @@ footer.site { background: var(--card); border-top: 1px solid var(--line); margin
   .liturgy .lrow { grid-template-columns: 90px 1fr; }
   .liturgy .lrow .time { grid-column: 2; }
 }
+
+/* Language switch (Arabic preview) */
+nav a.lang-switch { font-weight: 700; color: var(--gold); }
