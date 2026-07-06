@@ -1,5 +1,22 @@
 /* Saint Elias — shared interactions */
 (function () {
+  // Supabase (system of record). The publishable key is browser-safe — Row-Level
+  // Security limits it to inserting submissions; it cannot read anyone's data.
+  var SUPABASE_URL = 'https://uwewlcjouzkykzyuxzow.supabase.co';
+  var SUPABASE_KEY = 'sb_publishable_EEcUb26HzVB-JRQwGs6NSw_TB2xIRol';
+  function supabaseInsert(table, row) {
+    return fetch(SUPABASE_URL + '/rest/v1/' + table, {
+      method: 'POST',
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Content-Type': 'application/json',
+        'Prefer': 'return=minimal'
+      },
+      body: JSON.stringify(row)
+    }).catch(function () { /* the email notification is the backup channel */ });
+  }
+
   // Mobile menu toggle
   var btn = document.querySelector('.menubtn');
   var drawer = document.getElementById('mobile-nav');
@@ -41,7 +58,8 @@
     });
   }
 
-  // Parish forms that actually send (contact, volunteer) — via FormSubmit AJAX
+  // Parish forms that actually send (contact, volunteer, newsletter):
+  // write to Supabase (system of record) AND email via FormSubmit (notification).
   document.querySelectorAll('form[data-endpoint]').forEach(function (f) {
     f.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -49,13 +67,25 @@
       var btn = f.querySelector('button[type="submit"]');
       var label = btn ? btn.textContent : '';
       if (btn) { btn.disabled = true; btn.textContent = 'Sending…'; }
-      var data = {};
+
+      // Collect the real fields; skip the submit button and FormSubmit meta ("_honey", etc.)
+      var fields = {}, honeypot = false;
       Array.prototype.forEach.call(f.elements, function (el) {
-        if (el.name && el.type !== 'submit') data[el.name] = el.value;
+        if (!el.name || el.type === 'submit') return;
+        if (el.name.charAt(0) === '_') { if (el.value) honeypot = true; return; }
+        fields[el.name] = el.value;
       });
+      function show(msg) { if (s) { s.hidden = false; s.textContent = msg; } }
+
+      // Store in the database (skips silently if the honeypot was tripped by a bot)
+      var table = f.getAttribute('data-supabase-table');
+      if (table && !honeypot) { supabaseInsert(table, fields); }
+
+      // Email notification via FormSubmit — drives the success/error UI
+      var data = {};
+      for (var k in fields) { data[k] = fields[k]; }
       data._subject = f.getAttribute('data-subject') || 'New message from the Saint Elias website';
       data._template = 'table';
-      function show(msg) { if (s) { s.hidden = false; s.textContent = msg; } }
       fetch(f.getAttribute('data-endpoint'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
