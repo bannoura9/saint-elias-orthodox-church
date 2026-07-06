@@ -61,25 +61,13 @@
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify(data)
       }).then(function (r) { return r.json(); }).then(function () {
-        show('Thank you — your message has been sent. Someone from the parish will be in touch soon.');
+        show(f.getAttribute('data-success') || 'Thank you — your message has been sent. Someone from the parish will be in touch soon.');
         f.reset();
-        if (btn) { btn.textContent = 'Sent ✓'; }
+        if (btn) { btn.textContent = f.getAttribute('data-sent-label') || 'Sent ✓'; }
       }).catch(function () {
         show('Sorry, something went wrong. Please call us at (303) 949-5809 or use the live chat and we\'ll respond right away.');
         if (btn) { btn.disabled = false; btn.textContent = label; }
       });
-    });
-  });
-
-  // Parish forms (informational, e.g. newsletter) — route submitters to phone + live chat
-  document.querySelectorAll('form[data-parish-form]').forEach(function (f) {
-    f.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var msg = f.getAttribute('data-parish-form');
-      var s = f.querySelector('.form-status');
-      if (s) { s.hidden = false; s.textContent = msg; }
-      var b = f.querySelector('button[type="submit"]');
-      if (b) { b.disabled = true; b.textContent = 'Thank you'; }
     });
   });
 
