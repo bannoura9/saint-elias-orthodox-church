@@ -55,6 +55,11 @@
   .btn-gold:hover:not(:disabled){filter:brightness(1.05)}
   .btn-ghost{background:transparent;border:1px solid var(--line);color:var(--ink-soft);padding:8px 13px;font-size:13px}
   .btn-ghost:hover{border-color:var(--gold);color:var(--oxblood)}
+  .btn-google{width:100%;background:#fff;color:#3c4043;border:1px solid #dadce0;margin-top:8px;gap:11px;padding:12px;box-shadow:var(--shadow)}
+  .btn-google:hover:not(:disabled){filter:brightness(.97)}
+  .btn-google svg{width:18px;height:18px;flex:none}
+  .divider{display:flex;align-items:center;gap:12px;margin:22px 0 2px;color:var(--taupe);font-size:11.5px;letter-spacing:.08em;text-transform:uppercase}
+  .divider:before,.divider:after{content:"";flex:1;height:1px;background:var(--line)}
   .msg{margin-top:16px;font-size:13.5px;padding:10px 13px;border-radius:9px;display:none}
   .msg.err{display:block;background:rgba(122,31,43,.1);color:var(--oxblood);border:1px solid rgba(122,31,43,.25)}
 
@@ -151,6 +156,11 @@
     </div>
     <h1>Parish Portal</h1>
     <p class="sub">Saint Elias Antiochian Orthodox Church</p>
+    <button type="button" class="btn btn-google" id="googleBtn">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Sign in with Google
+    </button>
+    <div class="divider">or use email</div>
     <label for="email">Email</label>
     <input type="email" id="email" name="email" autocomplete="username" required placeholder="you@email.com">
     <label for="password">Password</label>
@@ -245,6 +255,44 @@
       fetch(SUPABASE_URL+'/auth/v1/logout',{method:'POST',headers:{'apikey':SUPABASE_KEY,'Authorization':'Bearer '+session.access_token}}).catch(function(){});
     }
     clearSession(); data={}; showLogin();
+  }
+
+  // ---- Google OAuth (implicit redirect flow, no SDK) ----
+  function googleSignIn(){
+    var redirect = location.origin + '/portal';
+    location.href = SUPABASE_URL + '/auth/v1/authorize?provider=google&redirect_to=' + encodeURIComponent(redirect);
+  }
+  function parseHash(){
+    var h = location.hash ? location.hash.substring(1) : '';
+    if(!h) return null;
+    var p={}; h.split('&').forEach(function(kv){ var a=kv.split('='); p[decodeURIComponent(a[0])]=decodeURIComponent((a[1]||'').replace(/\+/g,' ')); });
+    return p;
+  }
+  function jwtEmail(token){
+    try{ var seg=token.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+      var j=JSON.parse(decodeURIComponent(escape(atob(seg)))); return j.email||''; }catch(e){ return ''; }
+  }
+  // Is the signed-in account on the admin allowlist? (server-side is_admin())
+  function isAdminCheck(){
+    return api('/rest/v1/rpc/is_admin',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
+      .then(function(r){ if(!r.ok) return null; return r.json(); })
+      .then(function(v){ return v===true; })
+      .catch(function(){ return null; });
+  }
+  function showLoginError(msg){
+    var m=$('loginMsg'); if(m){ m.textContent=msg; m.classList.add('err'); }
+    $('app').classList.add('hidden'); $('login').classList.remove('hidden');
+  }
+  // gate the portal to admins only, then show it
+  function gateAndShow(){
+    return isAdminCheck().then(function(ok){
+      if(ok===false){
+        var who = (session&&session.email) ? session.email : 'your email';
+        showLoginError('This account (' + who + ') isn’t on the parish admin list. Ask the administrator to add it, then sign in again.');
+        logout(); return;
+      }
+      showApp(); // ok===true, or null (check unreachable) — RLS still protects the data
+    });
   }
 
   // authorized fetch with one refresh-retry on 401
@@ -449,20 +497,33 @@
     var b=$('loginBtn'), m=$('loginMsg'); m.classList.remove('err'); m.textContent='';
     b.disabled=true; b.textContent='Signing in…';
     login($('email').value.trim(),$('password').value).then(function(){
-      b.disabled=false; b.textContent='Sign in'; showApp();
+      b.disabled=false; b.textContent='Sign in'; return gateAndShow();
     }).catch(function(err){
       b.disabled=false; b.textContent='Sign in';
       m.textContent=err.message||'Sign in failed. Please try again.'; m.classList.add('err');
     });
   });
+  $('googleBtn').addEventListener('click',googleSignIn);
   $('logoutBtn').addEventListener('click',logout);
   $('refreshBtn').addEventListener('click',function(){ data={}; render(); loadAll().then(render); toast('Refreshed'); });
 
-  // resume existing session
-  session=loadSession();
-  if(session && session.access_token){
-    refresh().then(showApp).catch(function(){ clearSession(); showLogin(); });
-  } else { showLogin(); }
+  // ---- boot ----
+  var hp=parseHash();
+  if(hp && hp.access_token){
+    // returning from Google — capture tokens from the URL, then clean it
+    saveSession({ access_token:hp.access_token, refresh_token:hp.refresh_token,
+      expires_at: Date.now()+(parseInt(hp.expires_in,10)||3600)*1000, email:jwtEmail(hp.access_token) });
+    history.replaceState(null,'',location.pathname);
+    gateAndShow();
+  } else if(hp && hp.error){
+    history.replaceState(null,'',location.pathname);
+    showLoginError(hp.error_description || hp.error || 'Google sign-in was cancelled.');
+  } else {
+    session=loadSession();
+    if(session && session.access_token){
+      refresh().then(gateAndShow).catch(function(){ clearSession(); showLogin(); });
+    } else { showLogin(); }
+  }
 })();
 </script>
 </body>
