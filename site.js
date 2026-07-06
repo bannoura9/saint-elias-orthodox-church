@@ -101,15 +101,35 @@
     });
   });
 
-  // Tawk.to live chat widget (free) — loads on every page that includes site.js
-  var Tawk_API = window.Tawk_API = window.Tawk_API || {};
-  window.Tawk_LoadStart = window.Tawk_LoadStart || new Date();
+  // Tawk.to live chat widget (free) — loads on every page that includes site.js.
+  // Deferred until first user interaction (or 4s after load) so the ~430KB widget
+  // doesn't block first paint, shift layout mid-read, or hurt Core Web Vitals.
   (function () {
-    var s1 = document.createElement('script'), s0 = document.getElementsByTagName('script')[0];
-    s1.async = true;
-    s1.src = 'https://embed.tawk.to/6a4aba84a784211d46d3a6e5/1jspuh59a';
-    s1.charset = 'UTF-8';
-    s1.setAttribute('crossorigin', '*');
-    s0.parentNode.insertBefore(s1, s0);
+    var loaded = false;
+    function loadTawk() {
+      if (loaded) return;
+      loaded = true;
+      var Tawk_API = window.Tawk_API = window.Tawk_API || {};
+      window.Tawk_LoadStart = window.Tawk_LoadStart || new Date();
+      Tawk_API.onLoad = function () {
+        // Tawk's iframes ship without titles (accessibility failure) — label them.
+        document.querySelectorAll('iframe:not([title])').forEach(function (f) {
+          f.setAttribute('title', 'Live chat');
+        });
+      };
+      var s1 = document.createElement('script'), s0 = document.getElementsByTagName('script')[0];
+      s1.async = true;
+      s1.src = 'https://embed.tawk.to/6a4aba84a784211d46d3a6e5/1jspuh59a';
+      s1.charset = 'UTF-8';
+      s1.setAttribute('crossorigin', '*');
+      s0.parentNode.insertBefore(s1, s0);
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+        window.removeEventListener(ev, loadTawk);
+      });
+    }
+    ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (ev) {
+      window.addEventListener(ev, loadTawk, { passive: true, once: true });
+    });
+    window.addEventListener('load', function () { setTimeout(loadTawk, 4000); });
   })();
 })();
