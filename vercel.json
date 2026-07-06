@@ -21,6 +21,12 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.steliasarvada.com" }],
+      "destination": "https://steliasarvada.com/:path*",
+      "permanent": true
+    },
     { "source": "/shop", "destination": "https://shop.steliasarvada.com/shop", "permanent": false },
     { "source": "/shop/:path*", "destination": "https://shop.steliasarvada.com/shop/:path*", "permanent": false },
     { "source": "/annual-festival", "destination": "/festival", "permanent": true },
